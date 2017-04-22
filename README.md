@@ -1,2 +1,2 @@
-# before-and-after
-A decorator that implements before and after event logging using the Python Logentries package
+# Logerator
+A Python package that contains the decorator, `before_and_after`. The decorator implements before and after event logging using the Python Logentries package
