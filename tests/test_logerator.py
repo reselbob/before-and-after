@@ -36,4 +36,5 @@ class TestLogerator(TestCase):
 
     def test_time_write(self):
         rslt = simple_add(10, 200)
+        print ('The result of calling simple_add is {}'.format(rslt))
         self.assertTrue(rslt == 210)
