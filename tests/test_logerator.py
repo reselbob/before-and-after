@@ -1,10 +1,15 @@
 from unittest import TestCase
 from logerator import before_and_after
+from logerator import time_write
 from .simple_class import SimpleClass
 
 @before_and_after
 def turn_to_upper(strng):
     return str(strng).upper()
+
+@time_write
+def simple_add(num_one, num_two):
+    return num_one + num_two
 
 
 @before_and_after
@@ -19,11 +24,16 @@ class TestLogerator(TestCase):
         self.assertTrue(1 == 1)
 
     def test_logerator(self):
-        simple_function(1,2)
+        rslt = simple_function(1,2)
+        self.assertTrue(rslt == 3)
 
     def test_to_upper(self):
-        turn_to_upper('some lower case data')
+        reslt = turn_to_upper('some lower case data')
 
     def test_class(self):
         sc = SimpleClass('Bob', 'Reselman', 'Itchy', 'White Dog')
         sc.save()
+
+    def test_time_write(self):
+        rslt = simple_add(10, 200)
+        self.assertTrue(rslt == 210)

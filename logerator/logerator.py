@@ -3,7 +3,15 @@ import inspect
 import re
 import jsonpickle
 import os
+import datetime
 from logentries import LogentriesHandler
+
+def time_write(f):
+    def wrapper(*args, **kwargs):
+        print ('I am executing {} at {}'.format(f.__name__, datetime.datetime.now()))
+        rslt = f(*args, **kwargs)
+        return rslt
+    return wrapper
 
 def before_and_after(f):
     def wrapper(*args, **kwargs):
@@ -24,7 +32,7 @@ def before_and_after(f):
         log.info(jsonpickle.encode(data))
         print(jsonpickle.encode(data))
 
-        f(*args, **kwargs)
+        rslt = f(*args, **kwargs)
 
         result = f(*args, **kwargs)
         data['event'] = 'after'
@@ -32,6 +40,7 @@ def before_and_after(f):
 
         log.info(jsonpickle.encode(data))
         print(jsonpickle.encode(data))
+        return rslt
     return wrapper
 
 
