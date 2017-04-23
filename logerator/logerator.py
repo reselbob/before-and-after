@@ -15,11 +15,12 @@ def time_write(f):
 
 def before_and_after(f):
     def wrapper(*args, **kwargs):
+        #Set up the logger
         log = logging.getLogger('logentries')
         log.setLevel(logging.INFO)
         log.addHandler(LogentriesHandler(os.environ['LOGENTRIES_ID']))
-        #log.addHandler(LogentriesHandler('441de05d-e9ed-4a03-b157-d72449f86b59'))
 
+        #build the before event data object that we'll log
         data = {}
         data['event'] = 'before'
         data['function'] = f.__name__
@@ -29,17 +30,23 @@ def before_and_after(f):
         data['args'] = args
         data['kwarg'] = kwargs
 
+        #Deserialize the data object and log it
         log.info(jsonpickle.encode(data))
-        print(jsonpickle.encode(data))
+        if(os.environ['PRINT_BEFORE_AND_AFTER']):
+            print(jsonpickle.encode(data))
 
+        #Call the method that is being decorated
         rslt = f(*args, **kwargs)
 
-        result = f(*args, **kwargs)
+        #Add the after event data
         data['event'] = 'after'
-        data['result'] = result
+        data['result'] = rslt
 
+        # Deserialize the data object and log it
         log.info(jsonpickle.encode(data))
-        print(jsonpickle.encode(data))
+        if (os.environ['PRINT_BEFORE_AND_AFTER']):
+            print(jsonpickle.encode(data))
+        #return the result of the decorated function
         return rslt
     return wrapper
 
