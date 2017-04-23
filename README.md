@@ -10,9 +10,9 @@ A Python package that contains the decorator, `before_and_after`. The decorator 
  
  * Make sure you have an log setup on Logentries.
  
- * Add your API key to the environment variable,  `LOGENTRIES_ID`
+ * Add your API key to the environment variable,  `LOGENTRIES_TOKEN`
 
-`LOGENTRIES_ID=MY_LOGENTRIES_API_KEY`
+`LOGENTRIES_TOKEN=MY_LOGENTRIES_API_KEY`
 
  * Set the environment variable `PRINT_BEFORE_AND_AFTER` to `true` should you want the decorator the send logging information to console
  

@@ -19,6 +19,11 @@ def simple_function(num_one, num_two, signature="bob"):
     print (signature)
     return rslt
 
+@before_and_after
+def my_func():
+    print('I am a not so bright function')
+    return 'ok'
+
 class TestLogerator(TestCase):
 
     def test_logerator(self):
@@ -38,3 +43,7 @@ class TestLogerator(TestCase):
         rslt = simple_add(10, 200)
         print ('The result of calling simple_add is {}'.format(rslt))
         self.assertTrue(rslt == 210)
+
+    def test_my_func(self):
+        rslt = my_func()
+        self.assertTrue(rslt == 'ok')

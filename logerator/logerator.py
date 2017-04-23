@@ -12,20 +12,29 @@ def time_write(f):
         rslt = f(*args, **kwargs)
         return rslt
     return wrapper
+'''
+A decorator that logs before and after event information to a Logentries
+log.
+
+:param f: the function being wrapped by the decorator
+'''
 
 def before_and_after(f):
     def wrapper(*args, **kwargs):
         #Set up the logger
         log = logging.getLogger('logentries')
         log.setLevel(logging.INFO)
-        log.addHandler(LogentriesHandler(os.environ['LOGENTRIES_ID']))
+        #Get the token for the log
+        log.addHandler(LogentriesHandler(os.environ['LOGENTRIES_TOKEN']))
 
         #build the before event data object that we'll log
         data = {}
         data['event'] = 'before'
         data['function'] = f.__name__
         data['filename'] = inspect.getsourcefile(f)
-        data['line_number'] = get_function_line_number(data['function'], data['filename'])
+
+        line_num = get_function_line_number(data['function'], data['filename'])
+        data['line_number'] = line_num
 
         data['args'] = args
         data['kwarg'] = kwargs
