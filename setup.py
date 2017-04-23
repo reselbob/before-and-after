@@ -12,6 +12,9 @@ setup(
     url='https://github.com/reselbob/logerator',
     download_url='https://github.com/reselbob/logerator',
     packages=['logerator'],
+    install_requires=[
+        'jsonpickle','logentries'
+    ],
     package_dir={'logerator': 'logerator'},
     license="MIT license",
     keywords=['logerator', 'logging', 'logentries'],

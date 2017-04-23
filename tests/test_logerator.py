@@ -20,15 +20,15 @@ def simple_function(num_one, num_two, signature="bob"):
     return rslt
 
 class TestLogerator(TestCase):
-    def test_simple(self):
-        self.assertTrue(1 == 1)
 
     def test_logerator(self):
         rslt = simple_function(1,2)
         self.assertTrue(rslt == 3)
 
     def test_to_upper(self):
-        reslt = turn_to_upper('some lower case data')
+        msg = 'some lower case data'
+        rslt = turn_to_upper(msg)
+        self.assertTrue(rslt == msg.upper())
 
     def test_class(self):
         sc = SimpleClass('Bob', 'Reselman', 'Itchy', 'White Dog')
