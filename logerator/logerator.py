@@ -61,14 +61,12 @@ def before_and_after(f):
 
 
 def get_function_line_number(function_name, function_filespec):
-    f = open(function_filespec, 'r')
-    pattern = re.compile('\s*def\s* ' + function_name)
-    line_num = 0
+    with open(function_filespec, 'r') as f:
+        pattern = re.compile('\s*def\s* ' + function_name)
 
-    for line in f.readlines():
-        line_num += 1
-        if (pattern.match(line)):
-            return line_num
+        for i, line in enumerate(f):
+            if (pattern.match(line)):
+                return i + 1
 
 
 
